@@ -1,39 +1,17 @@
 import re
-import time
+import chromedriver_autoinstaller
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import InvalidCookieDomainException
 from webdriver_manager.chrome import ChromeDriverManager
-import pickle
-import json
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from scrapy import Selector
 from selenium.webdriver.chrome.options import Options
 from stampbox.location_finder import locate_text
 
-# s = Service("/usr/bin/google-chrome")
 s = Service(ChromeDriverManager().install())
-
-
-# chrome_options = Options()
-# chrome_options.add_argument('--no-sandbox')
-# chrome_options.add_argument('--disable-dev-shm-usage')
-# chrome_options.add_argument("--disable-extensions")
-# chrome_options.add_argument("--enable-javascript")
-# chrome_options.headless = False
-
-# driver = webdriver.Chrome(options=chrome_options, service=s)
-#
-# driver.get('https://images.google.com/')
-# cookies = pickle.load(open("classification/cookies.pkl", "rb"))
-# for cookie in cookies:
-#     try:
-#         driver.add_cookie(cookie)
-#     except InvalidCookieDomainException:
-#         continue
 
 
 def use_sel_model(img_param):
