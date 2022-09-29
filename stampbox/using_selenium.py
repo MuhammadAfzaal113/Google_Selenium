@@ -11,6 +11,9 @@ from scrapy import Selector
 from selenium.webdriver.chrome.options import Options
 from stampbox.location_finder import locate_text
 
+
+chromedriver_autoinstaller.install()
+
 s = Service(ChromeDriverManager().install())
 
 
