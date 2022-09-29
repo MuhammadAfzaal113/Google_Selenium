@@ -32,16 +32,11 @@ def use_sel_model(img_param):
                 EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[aria-label="Search by image"]'))))
         except Exception as e:
             driver.find_element(By.XPATH, '//*[@id="sbtc"]/div/div[3]/div[2]').click()
-        # driver.find_element(By.CSS_SELECTOR, 'a[href="about:invalid#zClosurez"]').click()
-        # try:
-        #     driver.find_element(By.CSS_SELECTOR, '#awyMjb').send_keys(img_param)
-        # except:
-        #     driver.find_element(By.CSS_SELECTOR, 'input[type="file"]').send_keys(img_param)
-        driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Paste image link"]').send_keys(
-            'https://www.pakpost.gov.pk/images/2016-08-17-Abdul-Sattar-Edhi-Philanthropist-1926-2016-Stamp.jpg')
+
+        driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Paste image link"]').send_keys(img_param)
         driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Paste image link"]').send_keys(Keys.ENTER)
         response = Selector(text=driver.page_source)
-        # pickle.dump(driver.get_cookies(), open("cookies.pkl", "wb"))
+
         first_text = response.css('a[style="font-style:italic"] ::text').get(None)
         if not first_text:
             google_page = response.css('a[data-tooltip-classes="UOPJud"] ::attr(href)').get('')

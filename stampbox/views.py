@@ -66,40 +66,35 @@ class ClassificationView(APIView):
         try:
             logger.info(f"User-Agent: {request.headers.get('User-Agent')}")
             logger.info('[METHOD: POST] [ClassificationView] Predicting text from image')
-            print('DATA HERE: ', request.FILES)
-            if request.data['media_file']:
-                serializer = self.serializer_class(data=request.data)
-                if serializer.is_valid():
-                    serializer.save()
-                    logger.info(f"File uploaded successfully, as {serializer.data}")
-                    img = serializer.data['media_file']
-                    img = env['Base_Path'] + img
 
-                    text_list = use_sel_model(img)
-                    if text_list:
-                        status_code = status.HTTP_200_OK
-                        response = {
-                            'success': True,
-                            'status_code': status_code,
-                            'message': 'Image File added Successfully',
-                            'extracted_details': text_list
-                        }
-                        remove_img(img)
-                        return Response(response, status_code)
+            if request.data['media_link']:
 
-                    else:
-                        status_code = status.HTTP_204_NO_CONTENT
-                        response = {
-                            'success': False,
-                            'status_code': status_code,
-                            'message': 'Unable to Apply OCR'
-                        }
-                        remove_img(img)
-                        return Response(response, status_code)
+                text_list = use_sel_model(request.data['media_link'])
+                if text_list:
+                    status_code = status.HTTP_200_OK
+                    response = {
+                        'success': True,
+                        'status_code': status_code,
+                        'message': 'Image File added Successfully',
+                        'extracted_details': text_list
+                    }
+                    return Response(response, status_code)
 
                 else:
-                    logger.warn(f'serializers throws error : {serializer.errors}')
-                    raise Exception
+                    status_code = status.HTTP_204_NO_CONTENT
+                    response = {
+                        'success': False,
+                        'status_code': status_code,
+                        'message': 'Unable to Apply OCR'
+                    }
+                    return Response(response, status_code)
+
+            else:
+                response = {
+                    'success': False,
+                    'message': 'bad request image_link is required in request body'
+                }
+                return Response(response, status.HTTP_400_BAD_REQUEST)
 
         except Exception as e:
             logger.error(f'[METHOD: POST] [ClassificationView] exception occurred as {e}')
