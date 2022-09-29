@@ -8,9 +8,10 @@ RUN apt-get update \
 && apt-get install libcurl4-gnutls-dev librtmp-dev -y \
 && apt-get install libnss3 libnss3-dev -y
 RUN touch /var/log/stamp.log
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \ \
-    && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
-RUN apt-get update && apt-get -y install google-chrome-stable
+RUN apt -f install -y
+RUN apt-get install -y wget
+RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN apt-get install ./google-chrome-stable_current_amd64.deb -y
 WORKDIR /stampbox
 COPY requirements.txt /stampbox/
 RUN pip install -r requirements.txt
