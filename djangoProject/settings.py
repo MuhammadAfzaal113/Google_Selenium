@@ -13,7 +13,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import nltk
-nltk.download('punkt')
+nltk.downloader.download('maxent_ne_chunker')
+nltk.downloader.download('words')
+nltk.downloader.download('treebank')
+nltk.downloader.download('maxent_treebank_pos_tagger')
+nltk.downloader.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
