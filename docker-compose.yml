@@ -1,0 +1,10 @@
+version: "2.2"
+
+services:
+  web:
+    container_name: stampbox_back
+    network_mode: host
+    build: .
+    command: daphne -b 0.0.0.0 -p 8000 Eats.asgi:application
+    volumes:
+      - .:/stampbox
