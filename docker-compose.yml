@@ -5,6 +5,6 @@ services:
     container_name: stampbox_back
     network_mode: host
     build: .
-    command: daphne -b 0.0.0.0 -p 8000 Eats.asgi:application
+    command: daphne -b 0.0.0.0 -p 8000 djangoProject.asgi:application
     volumes:
       - .:/stampbox
