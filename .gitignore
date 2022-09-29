@@ -1,0 +1,5 @@
+/media/File_Storage/
+/venv/
+*/migrations/
+.idea/
+/__pycache__/
