@@ -1,5 +1,4 @@
 import re
-import chromedriver_autoinstaller
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -11,8 +10,6 @@ from scrapy import Selector
 from selenium.webdriver.chrome.options import Options
 from stampbox.location_finder import locate_text
 
-
-chromedriver_autoinstaller.install()
 
 s = Service(ChromeDriverManager().install())
 
