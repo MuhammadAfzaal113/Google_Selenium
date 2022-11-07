@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 from scrapy import Selector
 from selenium.webdriver.chrome.options import Options
 from stampbox.location_finder import locate_text
+import time
 
 
 s = Service(ChromeDriverManager().install())
@@ -38,7 +39,12 @@ def use_sel_model(img_param):
         response = Selector(text=driver.page_source)
 
         first_text = response.css('a[style="font-style:italic"] ::text').get(None)
+        temp = dict()
         if not first_text:
+            driver.find_element(By.CSS_SELECTOR, '#ucj-5 .VfPpkd-rOvkhd-jPmIDe-dgl2Hf').click()
+            time.sleep(2)
+            response = Selector(text=driver.page_source)
+            temp['ocr_text'] = response.css('.ThEFId .QeOavc ::text').getall()
             google_page = response.css('a[data-tooltip-classes="UOPJud"] ::attr(href)').get('')
             driver.get(google_page)
 
@@ -48,7 +54,7 @@ def use_sel_model(img_param):
         years_list = re.findall(r" \b\d{4}\b", text)
         year = years_list[0] if years_list else None
         if text:
-            text = locate_text(text, tag_line=first_text, year=year)
+            text = locate_text(text, tag_line=first_text, year=year, ocr_text=temp.get('ocr_text', None))
             driver.close()
             return text
         else:

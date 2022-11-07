@@ -18,7 +18,7 @@ def check_entity(list_param):
         return None
 
 
-def locate_text(param, flag=False, tag_line=None, year=None):
+def locate_text(param, flag=False, tag_line=None, year=None, ocr_text=None):
     place_entity = locationtagger.find_locations(text=param)
     data = dict()
     data['tag_line'] = tag_line
