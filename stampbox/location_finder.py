@@ -23,6 +23,7 @@ def locate_text(param, flag=False, tag_line=None, year=None, ocr_text=None):
     data = dict()
     data['tag_line'] = tag_line
     data['year'] = year
+    data['ocr_text'] = ocr_text
     # getting all countries
     print("The countries in text : ")
     print(place_entity.countries)
